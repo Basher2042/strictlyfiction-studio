@@ -13,45 +13,91 @@
     <meta property="og:description" content="The territory Strictly Fiction works in. Human behaviour, social commentary, and a genre we're building as we go.">
     <meta property="og:image" content="https://strictlyfiction.studio/og-image.jpg">
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&display=swap" rel="stylesheet">
 
     <style>
-        * { box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
+            background: #fff;
             color: #000;
             -webkit-font-smoothing: antialiased;
-            margin: 0;
         }
 
-        .tracking-tightest { letter-spacing: -0.05em; }
-        .leading-tightest { line-height: 0.9; }
-
-        .fade-in {
-            animation: fadeIn 1.2s ease-out forwards;
-            opacity: 0;
-            transform: translateY(10px);
+        /* ────────────────────────────────
+           LAYOUT
+        ──────────────────────────────── */
+        .page-pad {
+            padding-left: 2rem;
+            padding-right: 2rem;
         }
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .delay-100 { animation-delay: 0.15s; }
-        .delay-200 { animation-delay: 0.3s; }
-        .delay-300 { animation-delay: 0.45s; }
-        .delay-400 { animation-delay: 0.6s; }
-        .delay-500 { animation-delay: 0.75s; }
-        .delay-600 { animation-delay: 0.9s; }
-        .delay-700 { animation-delay: 1.05s; }
+        @media (min-width: 768px)  { .page-pad { padding-left: 3.5rem;  padding-right: 3.5rem; } }
+        @media (min-width: 1024px) { .page-pad { padding-left: 5rem;    padding-right: 5rem; } }
+        @media (min-width: 1280px) { .page-pad { padding-left: 6rem;    padding-right: 6rem; } }
 
-        /* Satire callout block */
+        /* ────────────────────────────────
+           HEADER
+        ──────────────────────────────── */
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .wordmark { font-size: 0.875rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.25rem; color: #000; text-decoration: none; display: block; }
+        .wordmark-sub { font-size: 0.6rem; font-weight: 500; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.2em; }
+        .back-link {
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+            text-transform: uppercase; color: #9ca3af; text-decoration: none;
+            transition: color 0.2s; padding-top: 0.15rem;
+        }
+        .back-link:hover { color: #000; }
+
+        /* ────────────────────────────────
+           PAGE INTRO
+        ──────────────────────────────── */
+        .page-intro {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .section-label {
+            font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.2em; color: #9ca3af; margin-bottom: 1.5rem;
+        }
+        .page-title {
+            font-size: clamp(2.75rem, 7vw, 5.5rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 0.93;
+            max-width: 14ch;
+            margin-bottom: 2.5rem;
+        }
+        .page-intro-text {
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            font-weight: 500;
+            line-height: 1.7;
+            color: #374151;
+            max-width: 48rem;
+        }
+
+        /* ────────────────────────────────
+           DOCUMENTARY SATIRE BLOCK
+        ──────────────────────────────── */
+        .satire-section { padding: 4rem 0; }
+
         .satire-block {
             border: 1px solid #000;
-            padding: 3rem;
+            padding: 2.5rem;
             position: relative;
         }
-        .satire-label {
+        @media (min-width: 768px) { .satire-block { padding: 3rem; } }
+        @media (min-width: 1024px) { .satire-block { padding: 3.5rem 4rem; } }
+
+        .satire-tag {
             position: absolute;
             top: -0.55rem;
             left: 2rem;
@@ -63,127 +109,200 @@
             text-transform: uppercase;
             color: #9ca3af;
         }
+        .satire-concept-label {
+            font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.2em; color: #9ca3af; margin-bottom: 0.85rem;
+        }
+        .satire-title {
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            margin-bottom: 2.5rem;
+        }
+        .satire-body {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .satire-body { grid-template-columns: 1fr 1fr; gap: 4rem; }
+        }
+        .satire-p-primary {
+            font-size: 0.95rem; line-height: 1.8; color: #374151;
+        }
+        .satire-p-secondary {
+            font-size: 0.95rem; line-height: 1.8; color: #6b7280;
+        }
 
-        /* Theme rows */
+        /* ────────────────────────────────
+           THEMES LIST
+        ──────────────────────────────── */
+        .themes-section { padding-bottom: 6rem; }
+
+        .themes-label {
+            font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.2em; color: #9ca3af;
+            padding: 2rem 0 0;
+            border-top: 1px solid #f3f4f6;
+            margin-bottom: 0;
+        }
+
         .theme-row {
             display: grid;
-            grid-template-columns: 3rem 1fr;
-            gap: 2rem;
+            grid-template-columns: 2.5rem 1fr;
+            gap: 1.25rem;
             padding: 2rem 0;
             border-bottom: 1px solid #f3f4f6;
             align-items: start;
         }
         @media (min-width: 768px) {
-            .theme-row { grid-template-columns: 3rem 14rem 1fr; gap: 3rem; }
+            .theme-row {
+                grid-template-columns: 3rem 13rem 1fr;
+                gap: 0 4rem;
+                padding: 2.25rem 0;
+            }
         }
+        @media (min-width: 1280px) {
+            .theme-row { grid-template-columns: 3rem 200px 1fr; gap: 0 6rem; }
+        }
+
+        .theme-row:last-child { border-bottom: none; }
+
         .theme-num {
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: #d1d5db;
-            padding-top: 0.15rem;
-            letter-spacing: 0.05em;
+            font-size: 0.65rem; font-weight: 600; color: #d1d5db;
+            letter-spacing: 0.05em; padding-top: 0.1rem;
         }
         .theme-title {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            line-height: 1.4;
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.12em; line-height: 1.4;
         }
         .theme-desc {
-            font-size: 0.875rem;
-            color: #6b7280;
-            line-height: 1.75;
+            font-size: 0.9rem; color: #6b7280; line-height: 1.8;
         }
+
+        /* On mobile: stack title and desc under the number */
         @media (max-width: 767px) {
-            .theme-row { grid-template-columns: 2rem 1fr; gap: 1rem; }
+            .theme-row { grid-template-columns: 2.5rem 1fr; row-gap: 0.6rem; }
             .theme-title { grid-column: 2; }
-            .theme-desc { grid-column: 1 / -1; padding-left: 3rem; }
+            .theme-desc  { grid-column: 1 / -1; padding-left: 3.75rem; }
         }
+
+        /* ────────────────────────────────
+           FOOTER
+        ──────────────────────────────── */
+        .footer {
+            background: #fff;
+            border-top: 1px solid #f3f4f6;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        @media (min-width: 768px) {
+            .footer {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+                padding: 2rem 3.5rem;
+            }
+        }
+        @media (min-width: 1024px) { .footer { padding: 2.25rem 5rem; } }
+        @media (min-width: 1280px) { .footer { padding: 2.25rem 6rem; } }
+
+        .footer-contact-label {
+            font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.2em; color: #9ca3af; margin-bottom: 0.5rem;
+        }
+        .footer-email {
+            font-size: 1.05rem; font-weight: 700; color: #000;
+            text-decoration: none; transition: color 0.2s;
+        }
+        .footer-email:hover { color: #6b7280; }
+        .footer-copy { font-size: 0.6rem; color: #d1d5db; }
+
+        /* ────────────────────────────────
+           ANIMATIONS
+        ──────────────────────────────── */
+        .fade-in { animation: fadeIn 1.2s ease-out forwards; opacity: 0; transform: translateY(8px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        .d1 { animation-delay: 0.05s; }
+        .d2 { animation-delay: 0.2s;  }
+        .d3 { animation-delay: 0.35s; }
+        .d4 { animation-delay: 0.5s;  }
+        .d5 { animation-delay: 0.65s; }
+        .d6 { animation-delay: 0.8s;  }
+        .d7 { animation-delay: 0.95s; }
     </style>
 </head>
 
 <body>
 
     <!-- HEADER -->
-    <header class="fade-in" style="display:flex; justify-content:space-between; align-items:flex-start; padding:2rem; border-bottom:1px solid #f3f4f6;">
+    <header class="site-header page-pad fade-in d1">
         <a href="index.html" style="text-decoration:none; color:inherit;">
-            <div style="font-size:0.875rem; font-weight:700; letter-spacing:-0.01em; margin-bottom:0.25rem;">STRICTLY FICTION®</div>
-            <div style="font-size:0.625rem; font-weight:500; color:#9ca3af; text-transform:uppercase; letter-spacing:0.2em;">Studio</div>
+            <div class="wordmark">STRICTLY FICTION®</div>
+            <div class="wordmark-sub">Studio</div>
         </a>
-        <a href="index.html" style="font-size:0.7rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#9ca3af; text-decoration:none; padding-top:0.15rem; transition:color 0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#9ca3af'">← Back</a>
+        <a href="index.html" class="back-link">← Back</a>
     </header>
 
-    <div style="padding:2rem;" class="md:px-16 lg:px-24">
+    <!-- INTRO -->
+    <div class="page-intro page-pad fade-in d2">
+        <p class="section-label">The Territory</p>
+        <h1 class="page-title">What the<br>work is about.</h1>
+        <p class="page-intro-text">
+            Before the work, the questions. These are the territories Strictly Fiction plans to map: the human stuff, the uncomfortable stuff, the stuff everyone recognises and almost nobody says clearly.
+        </p>
+    </div>
 
-        <!-- PAGE TITLE -->
-        <div class="fade-in delay-100" style="padding:4rem 0 3rem;">
-            <div style="font-size:0.625rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#9ca3af; margin-bottom:1.5rem;">The Territory</div>
-            <h1 class="tracking-tightest leading-tightest" style="font-size:clamp(3rem, 8vw, 6rem); font-weight:900; max-width:16ch; line-height:0.92;">
-                What the work<br/>is about.
-            </h1>
-        </div>
-
-        <!-- OPENING STATEMENT -->
-        <div class="fade-in delay-200" style="max-width:42rem; padding-bottom:4rem; border-bottom:1px solid #f3f4f6;">
-            <p style="font-size:1.1rem; font-weight:500; line-height:1.7; color:#374151;">
-                Before the work, the questions. These are the territories Strictly Fiction plans to map: the human stuff, the uncomfortable stuff, the stuff everyone recognises and almost nobody says clearly.
-            </p>
-        </div>
-
-        <!-- DOCUMENTARY SATIRE: the flagship concept -->
-        <div class="fade-in delay-300" style="padding:4rem 0;">
-            <div class="satire-block">
-                <span class="satire-label">Central concept</span>
-                <div style="display:grid; grid-template-columns:1fr; gap:2rem;" class="md:grid-cols-12">
-                    <div style="grid-column:span 12;">
-                        <div style="font-size:0.625rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#9ca3af; margin-bottom:1rem;">Documentary Satire</div>
-                        <h2 class="tracking-tightest" style="font-size:clamp(1.75rem, 4vw, 3rem); font-weight:900; line-height:1; margin-bottom:2rem;">A genre we're<br/>building as we go.</h2>
-                    </div>
-                    <div style="grid-column:span 6;" class="md:col-span-6">
-                        <p style="font-size:0.9rem; line-height:1.8; color:#374151;">
-                            Satire has always told truth through laughter. Documentary has always hunted truth through observation. Documentary satire does both at once. It points the camera at real life and lets reality make the joke.
-                        </p>
-                    </div>
-                    <div style="grid-column:span 6;" class="md:col-span-6">
-                        <p style="font-size:0.9rem; line-height:1.8; color:#6b7280;">
-                            Not scripted absurdity. Not mockumentary. The world, caught at the right angle, held just long enough to become uncomfortable. Then funny. Then true. The camera doesn't need to lie. Reality is already strange enough.
-                        </p>
-                    </div>
-                </div>
+    <!-- DOCUMENTARY SATIRE -->
+    <div class="satire-section page-pad fade-in d3">
+        <div class="satire-block">
+            <span class="satire-tag">Central concept</span>
+            <p class="satire-concept-label">Documentary Satire</p>
+            <h2 class="satire-title">A genre we're<br>building as we go.</h2>
+            <div class="satire-body">
+                <p class="satire-p-primary">
+                    Satire has always told truth through laughter. Documentary has always hunted truth through observation. Documentary satire does both at once. It points the camera at real life and lets reality make the joke.
+                </p>
+                <p class="satire-p-secondary">
+                    Not scripted absurdity. Not mockumentary. The world, caught at the right angle, held just long enough to become uncomfortable. Then funny. Then true. The camera doesn't need to lie. Reality is already strange enough.
+                </p>
             </div>
         </div>
+    </div>
 
-        <!-- THEMES LIST -->
-        <div class="fade-in delay-400">
-            <div style="font-size:0.625rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#9ca3af; margin-bottom:0; padding-top:1rem; border-top:1px solid #f3f4f6; padding-top:2rem;">Recurring Themes</div>
-        </div>
+    <!-- THEMES -->
+    <div class="themes-section page-pad">
 
-        <div class="fade-in delay-400 theme-row">
+        <p class="themes-label fade-in d4">Recurring Themes</p>
+
+        <div class="theme-row fade-in d4">
             <span class="theme-num">01</span>
             <span class="theme-title">Human Behaviour</span>
             <p class="theme-desc">Not what people say they do. What they actually do when nobody's scoring them. The gap between stated values and lived reality is where we start.</p>
         </div>
 
-        <div class="fade-in delay-500 theme-row">
+        <div class="theme-row fade-in d5">
             <span class="theme-num">02</span>
             <span class="theme-title">The Psyche</span>
             <p class="theme-desc">What lives beneath how people present themselves. Self-delusion, defence mechanisms, the stories we tell ourselves to stay comfortable. Examined without cruelty, but honestly.</p>
         </div>
 
-        <div class="fade-in delay-500 theme-row">
+        <div class="theme-row fade-in d5">
             <span class="theme-num">03</span>
             <span class="theme-title">Social Architecture</span>
             <p class="theme-desc">The invisible rules everyone follows and nobody wrote down. Norms, rituals, hierarchies: the systems that shape behaviour without anyone consciously choosing them.</p>
         </div>
 
-        <div class="fade-in delay-600 theme-row">
+        <div class="theme-row fade-in d6">
             <span class="theme-num">04</span>
             <span class="theme-title">Painful Truths</span>
             <p class="theme-desc">The things widely understood and rarely said. Not controversial. Just honest. The observations that land like a punch because they're accurate, not because they're provocative.</p>
         </div>
 
-        <div class="fade-in delay-600 theme-row" style="border-bottom:none;">
+        <div class="theme-row fade-in d6">
             <span class="theme-num">05</span>
             <span class="theme-title">The Absurd</span>
             <p class="theme-desc">Reality needs no embellishment. It needs the right frame and enough patience. We find situations where the world is already funnier, stranger, and sadder than anything scripted.</p>
@@ -192,14 +311,14 @@
     </div>
 
     <!-- FOOTER -->
-    <footer style="border-top:1px solid #f3f4f6; padding:2rem; display:flex; flex-direction:column; gap:1rem; margin-top:4rem;" class="md:flex-row md:justify-between md:items-end md:px-16 lg:px-24">
+    <footer class="footer">
         <div>
-            <div style="font-size:0.625rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#9ca3af; margin-bottom:0.5rem;">Contact</div>
-            <a href="mailto:contact@strictlyfiction.studio" style="font-size:1.125rem; font-weight:700; color:#000; text-decoration:none;" onmouseover="this.style.color='#6b7280'" onmouseout="this.style.color='#000'">
+            <div class="footer-contact-label">Contact</div>
+            <a href="mailto:contact@strictlyfiction.studio" class="footer-email">
                 contact@strictlyfiction.studio
             </a>
         </div>
-        <span style="font-size:0.625rem; color:#d1d5db;">© 2026 Strictly Fiction Studio.</span>
+        <span class="footer-copy">© 2026 Strictly Fiction Studio.</span>
     </footer>
 
 </body>

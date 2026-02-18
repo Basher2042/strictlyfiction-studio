@@ -19,23 +19,21 @@
     <meta name="twitter:description" content="Narrative architecture, documentary filmmaking, cinematic production.">
     <meta name="twitter:image" content="https://strictlyfiction.studio/og-image.jpg">
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&display=swap" rel="stylesheet">
 
     <style>
-        * { box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000;
+            background: #000;
             color: #000;
             -webkit-font-smoothing: antialiased;
-            margin: 0;
         }
 
-        .tracking-tightest { letter-spacing: -0.05em; }
-        .leading-tightest { line-height: 0.9; }
-
-        /* ── HERO ── */
+        /* ────────────────────────────────
+           HERO
+        ──────────────────────────────── */
         #hero {
             position: relative;
             height: 100vh;
@@ -60,8 +58,8 @@
             background: linear-gradient(
                 to bottom,
                 rgba(0,0,0,0.65) 0%,
-                rgba(0,0,0,0.35) 45%,
-                rgba(0,0,0,0.55) 100%
+                rgba(0,0,0,0.30) 45%,
+                rgba(0,0,0,0.60) 100%
             );
         }
 
@@ -75,32 +73,161 @@
             padding: 2rem;
         }
 
-        @media (min-width: 768px) { #hero-content { padding: 4rem; } }
-        @media (min-width: 1024px) { #hero-content { padding: 6rem; } }
+        @media (min-width: 768px)  { #hero-content { padding: 3.5rem; } }
+        @media (min-width: 1024px) { #hero-content { padding: 5rem; } }
+        @media (min-width: 1280px) { #hero-content { padding: 6rem; } }
 
-        /* Scroll cue */
+        /* Header */
+        .hero-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            color: #fff;
+        }
+        .hero-wordmark { font-size: 0.875rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.25rem; }
+        .hero-sub { font-size: 0.6rem; font-weight: 500; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.2em; }
+        .hero-nav {
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+            text-transform: uppercase; color: rgba(255,255,255,0.45);
+            text-decoration: none; transition: color 0.2s;
+            padding-top: 0.1rem;
+        }
+        .hero-nav:hover { color: rgba(255,255,255,0.9); }
+
+        /* Headline */
+        .hero-headline {
+            font-size: clamp(3rem, 8vw, 7.5rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 0.92;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+        .hero-subtitle {
+            font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+            font-weight: 500;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.7);
+            max-width: 38rem;
+        }
+
+        /* Bottom bar */
+        .hero-bottom {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            color: #fff;
+        }
         .scroll-cue { display: flex; align-items: center; gap: 0.5rem; }
         .scroll-cue-line {
-            width: 1px;
-            height: 40px;
-            background: #fff;
+            width: 1px; height: 40px; background: #fff;
             animation: scrollCue 1.8s ease-in-out infinite;
         }
         @keyframes scrollCue {
-            0%, 100% { transform: scaleY(1); opacity: 0.5; }
-            50% { transform: scaleY(0.5); opacity: 1; }
+            0%, 100% { opacity: 0.4; transform: scaleY(1); }
+            50%       { opacity: 0.9; transform: scaleY(0.55); }
         }
+        .scroll-cue-label {
+            font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em;
+            text-transform: uppercase; color: rgba(255,255,255,0.35);
+        }
+        .hero-email {
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+            text-transform: uppercase; color: rgba(255,255,255,0.35);
+            text-decoration: none; transition: color 0.2s;
+        }
+        .hero-email:hover { color: rgba(255,255,255,0.85); }
 
         /* Fade in */
-        .fade-in {
-            animation: fadeIn 1.4s ease-out forwards;
-            opacity: 0;
-            transform: translateY(12px);
-        }
+        .fade-in { animation: fadeIn 1.4s ease-out forwards; opacity: 0; transform: translateY(10px); }
         @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-400 { animation-delay: 0.5s; }
+        .d1 { animation-delay: 0.05s; }
+        .d2 { animation-delay: 0.2s;  }
+        .d3 { animation-delay: 0.35s; }
+        .d4 { animation-delay: 0.55s; }
+
+        /* ────────────────────────────────
+           SERVICES
+        ──────────────────────────────── */
+        .services {
+            background: #fff;
+            padding: 5rem 2rem 6rem;
+        }
+        @media (min-width: 768px)  { .services { padding: 5rem 3.5rem 6rem; } }
+        @media (min-width: 1024px) { .services { padding: 6rem 5rem 7rem; } }
+        @media (min-width: 1280px) { .services { padding: 7rem 6rem 8rem; } }
+
+        .services-label {
+            font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.2em; color: #9ca3af; margin-bottom: 2.5rem;
+        }
+
+        .services-list { border-top: 1px solid #f3f4f6; }
+
+        .service-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            padding: 2.25rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        @media (min-width: 768px) {
+            .service-row {
+                grid-template-columns: 1fr 2fr;
+                gap: 5rem;
+                padding: 2.75rem 0;
+                align-items: start;
+            }
+        }
+        @media (min-width: 1280px) {
+            .service-row { grid-template-columns: 280px 1fr; gap: 8rem; }
+        }
+
+        .service-row:last-child { border-bottom: none; }
+
+        .service-title-block { padding-top: 0.1rem; }
+        .service-rule { width: 2rem; height: 1px; background: #000; margin-bottom: 1.1rem; }
+        .service-title {
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.12em;
+        }
+        .service-desc {
+            font-size: 0.9rem; color: #6b7280; line-height: 1.8;
+        }
+        @media (min-width: 1024px) { .service-desc { font-size: 0.95rem; max-width: 52rem; } }
+
+        /* ────────────────────────────────
+           FOOTER
+        ──────────────────────────────── */
+        .footer {
+            background: #fff;
+            border-top: 1px solid #f3f4f6;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        @media (min-width: 768px) {
+            .footer {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+                padding: 2rem 3.5rem;
+            }
+        }
+        @media (min-width: 1024px) { .footer { padding: 2.25rem 5rem; } }
+        @media (min-width: 1280px) { .footer { padding: 2.25rem 6rem; } }
+
+        .footer-contact-label {
+            font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.2em; color: #9ca3af; margin-bottom: 0.5rem;
+        }
+        .footer-email {
+            font-size: 1.05rem; font-weight: 700; color: #000;
+            text-decoration: none; transition: color 0.2s;
+        }
+        .footer-email:hover { color: #6b7280; }
+        .footer-copy { font-size: 0.6rem; color: #d1d5db; }
     </style>
 </head>
 
@@ -115,36 +242,31 @@
 
         <div id="hero-content">
 
-            <!-- Header -->
-            <header class="flex justify-between items-start fade-in" style="color:#fff;">
+            <header class="hero-header fade-in d1">
                 <div>
-                    <div class="text-sm font-bold tracking-tight mb-1">STRICTLY FICTION®</div>
-                    <div style="font-size:0.625rem; font-weight:500; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.2em;">Studio</div>
+                    <div class="hero-wordmark">STRICTLY FICTION®</div>
+                    <div class="hero-sub">Studio</div>
                 </div>
-                <a href="themes.html" style="font-size:0.7rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.9)'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Themes →</a>
+                <a href="themes.html" class="hero-nav">Themes →</a>
             </header>
 
-            <!-- Headline -->
             <main>
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tightest leading-tightest mb-10 fade-in delay-100" style="color:#fff;">
-                    PEOPLE ARE<br/>
-                    STRANGER THAN<br/>
+                <h1 class="hero-headline fade-in d2">
+                    PEOPLE ARE<br>
+                    STRANGER THAN<br>
                     FICTION.
                 </h1>
-                <div class="fade-in delay-200 max-w-lg">
-                    <p style="font-size:1.1rem; font-weight:500; line-height:1.6; color:rgba(255,255,255,0.75);">
-                        Truth is a construction. We are the architects.
-                    </p>
-                </div>
+                <p class="hero-subtitle fade-in d3">
+                    Truth is a construction. We are the architects.
+                </p>
             </main>
 
-            <!-- Scroll cue -->
-            <div class="fade-in delay-400 flex items-end justify-between" style="color:#fff;">
+            <div class="hero-bottom fade-in d4">
                 <div class="scroll-cue">
                     <div class="scroll-cue-line"></div>
-                    <span style="font-size:0.6rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.4);">Scroll</span>
+                    <span class="scroll-cue-label">Scroll</span>
                 </div>
-                <a href="mailto:contact@strictlyfiction.studio" style="font-size:0.7rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.9)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+                <a href="mailto:contact@strictlyfiction.studio" class="hero-email">
                     contact@strictlyfiction.studio
                 </a>
             </div>
@@ -153,32 +275,26 @@
     </section>
 
     <!-- SERVICES -->
-    <section style="background:#fff; padding:6rem 2rem;" class="md:px-16 lg:px-24">
+    <section class="services">
+        <p class="services-label">What We Do</p>
+        <div class="services-list">
 
-        <div style="margin-bottom:3rem;">
-            <span style="font-size:0.625rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#9ca3af;">What We Do</span>
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr; gap:0; border-top:1px solid #f3f4f6;">
-
-            <!-- Documentary -->
-            <div style="padding:2.5rem 0; border-bottom:1px solid #f3f4f6; display:grid; grid-template-columns:1fr; gap:1rem;" class="md:grid-cols-3">
-                <div>
-                    <div style="width:2rem; height:1px; background:#000; margin-bottom:1.25rem;"></div>
-                    <h2 style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.15em;">Documentary</h2>
+            <div class="service-row">
+                <div class="service-title-block">
+                    <div class="service-rule"></div>
+                    <h2 class="service-title">Documentary</h2>
                 </div>
-                <p style="font-size:0.875rem; color:#6b7280; line-height:1.7; grid-column:span 2;" class="md:col-span-2">
+                <p class="service-desc">
                     Long-form non-fiction built with the discipline of fiction. We don't capture events. We construct their meaning. Every film starts with a question that doesn't have a clean answer.
                 </p>
             </div>
 
-            <!-- Narrative Shorts -->
-            <div style="padding:2.5rem 0; display:grid; grid-template-columns:1fr; gap:1rem;" class="md:grid-cols-3">
-                <div>
-                    <div style="width:2rem; height:1px; background:#000; margin-bottom:1.25rem;"></div>
-                    <h2 style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.15em;">Narrative Shorts</h2>
+            <div class="service-row">
+                <div class="service-title-block">
+                    <div class="service-rule"></div>
+                    <h2 class="service-title">Narrative Shorts</h2>
                 </div>
-                <p style="font-size:0.875rem; color:#6b7280; line-height:1.7;" class="md:col-span-2">
+                <p class="service-desc">
                     Short films built to cut through. Compressed ideas, maximum impact. We treat the short format as a precision instrument. Proof of concept for bigger stories, and complete works in their own right.
                 </p>
             </div>
@@ -187,14 +303,14 @@
     </section>
 
     <!-- FOOTER -->
-    <footer style="background:#fff; border-top:1px solid #f3f4f6; padding:2rem; display:flex; flex-direction:column; gap:1rem;" class="md:flex-row md:justify-between md:items-end md:px-16 lg:px-24">
+    <footer class="footer">
         <div>
-            <div style="font-size:0.625rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#9ca3af; margin-bottom:0.5rem;">Contact</div>
-            <a href="mailto:contact@strictlyfiction.studio" style="font-size:1.125rem; font-weight:700; color:#000; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#6b7280'" onmouseout="this.style.color='#000'">
+            <div class="footer-contact-label">Contact</div>
+            <a href="mailto:contact@strictlyfiction.studio" class="footer-email">
                 contact@strictlyfiction.studio
             </a>
         </div>
-        <span style="font-size:0.625rem; color:#d1d5db;">© 2026 Strictly Fiction Studio.</span>
+        <span class="footer-copy">© 2026 Strictly Fiction Studio.</span>
     </footer>
 
 </body>
