@@ -4,7 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STRICTLY FICTION STUDIO</title>
-    <meta name="description" content="Narrative Architecture & Documentary Production.">
+    <meta name="description" content="Strictly Fiction is a narrative architecture studio focused on documentary filmmaking and cinematic production.">
+
+    <!-- OG / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://strictlyfiction.studio">
+    <meta property="og:title" content="Strictly Fiction Studio">
+    <meta property="og:description" content="We build the lies you live in. Narrative architecture, documentary filmmaking, cinematic production.">
+    <meta property="og:image" content="https://strictlyfiction.studio/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Strictly Fiction Studio">
+    <meta name="twitter:description" content="We build the lies you live in. Narrative architecture, documentary filmmaking, cinematic production.">
+    <meta name="twitter:image" content="https://strictlyfiction.studio/og-image.jpg">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&display=swap" rel="stylesheet">
     <style>
@@ -16,8 +30,7 @@
         }
         .tracking-tightest { letter-spacing: -0.05em; }
         .leading-tightest { line-height: 0.9; }
-        
-        /* Subtle fade in */
+
         .fade-in {
             animation: fadeIn 1.2s ease-out forwards;
             opacity: 0;
@@ -29,12 +42,14 @@
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between p-8 md:p-16 lg:p-24 selection:bg-black selection:text-white">
+<body class="min-h-screen flex flex-col p-8 md:p-16 lg:p-24 selection:bg-black selection:text-white">
 
     <!-- HEADER -->
-    <header class="flex justify-between items-start fade-in">
+    <header class="flex justify-between items-start fade-in mb-auto">
         <div>
             <div class="text-sm font-bold tracking-tight mb-1">STRICTLY FICTION®</div>
             <div class="text-[10px] font-medium text-gray-400 uppercase tracking-widest">Studio</div>
@@ -42,8 +57,8 @@
         <div class="text-xs font-medium text-gray-400">EST. 2026</div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-grow flex flex-col justify-center py-20">
+    <!-- HERO -->
+    <main class="flex flex-col justify-center py-20">
         <div class="max-w-4xl">
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tightest leading-tightest mb-12 fade-in delay-100">
                 WE BUILD<br/>
@@ -52,29 +67,56 @@
             </h1>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 fade-in delay-200">
-                <div class="md:col-span-7 space-y-8">
+                <div class="md:col-span-7">
                     <p class="text-lg md:text-xl font-medium leading-relaxed max-w-lg text-gray-900">
                         Strictly Fiction is a narrative architecture studio focused on documentary filmmaking and cinematic production.
                     </p>
-                    <div class="space-y-1">
-                        <div class="h-px w-12 bg-black mb-4"></div>
-                        <p class="text-sm font-medium text-gray-500">Documentary</p>
-                        <p class="text-sm font-medium text-gray-500">Narrative Shorts</p>
-                        <p class="text-sm font-medium text-gray-500">Cinematic Production</p>
-                    </div>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- SERVICES -->
+    <section class="py-16 border-t border-gray-100 fade-in delay-300">
+        <div class="mb-12">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">What We Do</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100">
+
+            <div class="bg-white pr-8 pb-8">
+                <div class="h-px w-8 bg-black mb-6"></div>
+                <h2 class="text-sm font-bold uppercase tracking-widest mb-4">Documentary</h2>
+                <p class="text-sm text-gray-500 leading-relaxed">
+                    Long-form non-fiction that investigates real worlds with the precision of fiction. We find the frame that makes truth undeniable.
+                </p>
+            </div>
+
+            <div class="bg-white px-8 pb-8 md:px-12">
+                <div class="h-px w-8 bg-black mb-6"></div>
+                <h2 class="text-sm font-bold uppercase tracking-widest mb-4">Narrative Shorts</h2>
+                <p class="text-sm text-gray-500 leading-relaxed">
+                    Short films that compress complex ideas into sharp, visceral experiences. Proof of concept for bigger stories.
+                </p>
+            </div>
+
+            <div class="bg-white pl-8 pb-8 md:pl-12">
+                <div class="h-px w-8 bg-black mb-6"></div>
+                <h2 class="text-sm font-bold uppercase tracking-widest mb-4">Cinematic Production</h2>
+                <p class="text-sm text-gray-500 leading-relaxed">
+                    Full production pipeline from development to delivery. We handle the craft so the story can breathe.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
     <!-- FOOTER -->
-    <footer class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-start md:items-end fade-in delay-300">
+    <footer class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-start md:items-end fade-in delay-500">
         <div class="space-y-2">
             <h3 class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Contact</h3>
             <a href="mailto:contact@strictlyfiction.studio" class="block text-lg font-bold hover:text-gray-500 transition-colors">contact@strictlyfiction.studio</a>
         </div>
-        
-        <div class="mt-8 md:mt-0 flex flex-col items-end gap-1">
+        <div class="mt-8 md:mt-0">
             <span class="text-[10px] text-gray-300">© 2026 Strictly Fiction Studio.</span>
         </div>
     </footer>
