@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STRICTLY FICTION STUDIO</title>
-    <meta name="description" content="Strictly Fiction is a narrative architecture studio focused on documentary filmmaking and cinematic production.">
+    <title>Strictly Fiction Studio</title>
+    <meta name="description" content="Strictly Fiction is a narrative architecture studio. Documentary filmmaking and cinematic production.">
 
     <!-- OG / Social -->
     <meta property="og:type" content="website">
@@ -21,20 +21,91 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&display=swap" rel="stylesheet">
+
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #ffffff; 
-            color: #000000; 
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #000;
             -webkit-font-smoothing: antialiased;
+            margin: 0;
         }
+
         .tracking-tightest { letter-spacing: -0.05em; }
         .leading-tightest { line-height: 0.9; }
 
+        /* ── HERO ── */
+        #hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #bg-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Gradient overlay: dark at top and bottom, lighter in middle */
+        #hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.65) 0%,
+                rgba(0,0,0,0.35) 45%,
+                rgba(0,0,0,0.55) 100%
+            );
+        }
+
+        #hero-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            padding: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            #hero-content { padding: 4rem; }
+        }
+        @media (min-width: 1024px) {
+            #hero-content { padding: 6rem; }
+        }
+
+        /* Scroll cue */
+        .scroll-cue {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.5;
+        }
+        .scroll-cue-line {
+            width: 1px;
+            height: 40px;
+            background: #fff;
+            animation: scrollCue 1.8s ease-in-out infinite;
+        }
+        @keyframes scrollCue {
+            0%, 100% { transform: scaleY(1); opacity: 0.5; }
+            50% { transform: scaleY(0.5); opacity: 1; }
+        }
+
+        /* Fade in */
         .fade-in {
-            animation: fadeIn 1.2s ease-out forwards;
+            animation: fadeIn 1.4s ease-out forwards;
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(12px);
         }
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
@@ -42,22 +113,48 @@
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
+        .delay-400 { animation-delay: 0.5s; }
 
-        /* Reel modal */
+        /* Reel button */
+        .reel-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            transition: color 0.2s;
+        }
+        .reel-btn:hover { color: #fff; }
+        .reel-btn .play-ring {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.2s;
+        }
+        .reel-btn:hover .play-ring { border-color: #fff; }
+
+        /* ── MODAL ── */
         #reel-modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 100;
+            background: rgba(0,0,0,0.96);
+            z-index: 200;
             align-items: center;
             justify-content: center;
         }
-        #reel-modal.open {
-            display: flex;
-        }
+        #reel-modal.open { display: flex; }
         #reel-modal video {
             max-width: 90vw;
             max-height: 85vh;
@@ -67,118 +164,155 @@
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.65rem;
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
             transition: color 0.2s;
+            background: none;
+            border: none;
         }
         #reel-close:hover { color: #fff; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col p-8 md:p-16 lg:p-24 selection:bg-black selection:text-white">
 
-    <!-- HEADER -->
-    <header class="flex justify-between items-start fade-in mb-auto">
-        <div>
-            <div class="text-sm font-bold tracking-tight mb-1">STRICTLY FICTION®</div>
-            <div class="text-[10px] font-medium text-gray-400 uppercase tracking-widest">Studio</div>
-        </div>
-        <div class="text-xs font-medium text-gray-400">EST. 2026</div>
-    </header>
+<body>
 
-    <!-- HERO -->
-    <main class="flex flex-col justify-center py-20">
-        <div class="max-w-4xl">
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tightest leading-tightest mb-12 fade-in delay-100">
-                WE BUILD<br/>
-                THE LIES<br/>
-                YOU LIVE IN.
-            </h1>
+    <!-- ══════════════════════════════════════
+         HERO — full-viewport video background
+    ══════════════════════════════════════ -->
+    <section id="hero">
+        <video id="bg-video" autoplay muted loop playsinline poster="">
+            <source src="reel.mp4" type="video/mp4">
+        </video>
+        <div id="hero-overlay"></div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 fade-in delay-200">
-                <div class="md:col-span-7 space-y-8">
-                    <p class="text-lg md:text-xl font-medium leading-relaxed max-w-lg text-gray-900">
-                        Strictly Fiction is a narrative architecture studio focused on documentary filmmaking and cinematic production.
+        <div id="hero-content">
+
+            <!-- Header -->
+            <header class="flex justify-between items-start fade-in" style="color:#fff;">
+                <div>
+                    <div class="text-sm font-bold tracking-tight mb-1">STRICTLY FICTION®</div>
+                    <div style="font-size:0.625rem; font-weight:500; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.2em;">Studio</div>
+                </div>
+                <div style="font-size:0.75rem; font-weight:500; color:rgba(255,255,255,0.4);">EST. 2026</div>
+            </header>
+
+            <!-- Headline -->
+            <main>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tightest leading-tightest mb-10 fade-in delay-100" style="color:#fff;">
+                    WE BUILD<br/>
+                    THE LIES<br/>
+                    YOU LIVE IN.
+                </h1>
+                <div class="fade-in delay-200 space-y-6 max-w-lg">
+                    <p style="font-size:1.1rem; font-weight:500; line-height:1.6; color:rgba(255,255,255,0.75);">
+                        Truth is a construction. We are the architects.
                     </p>
-                    <button id="reel-btn" onclick="openReel()" class="inline-flex items-center gap-3 text-sm font-bold uppercase tracking-widest hover:text-gray-500 transition-colors">
-                        <span class="w-8 h-8 rounded-full border-2 border-black flex items-center justify-center hover:border-gray-500 transition-colors">
-                            <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><polygon points="0,0 10,6 0,12"/></svg>
+                    <button class="reel-btn fade-in delay-300" onclick="openReel()">
+                        <span class="play-ring">
+                            <svg width="9" height="11" viewBox="0 0 9 11" fill="white"><polygon points="0,0 9,5.5 0,11"/></svg>
                         </span>
                         Watch Reel
                     </button>
                 </div>
+            </main>
+
+            <!-- Scroll cue -->
+            <div class="fade-in delay-400 flex items-end justify-between" style="color:#fff;">
+                <div class="scroll-cue">
+                    <div class="scroll-cue-line"></div>
+                    <span style="font-size:0.6rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.4);">Scroll</span>
+                </div>
+                <a href="mailto:contact@strictlyfiction.studio" style="font-size:0.7rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.9)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+                    contact@strictlyfiction.studio
+                </a>
             </div>
-        </div>
-    </main>
 
-    <!-- SERVICES -->
-    <section class="py-16 border-t border-gray-100 fade-in delay-300">
-        <div class="mb-12">
-            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">What We Do</span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100">
+    </section>
 
-            <div class="bg-white pr-8 pb-8">
-                <div class="h-px w-8 bg-black mb-6"></div>
-                <h2 class="text-sm font-bold uppercase tracking-widest mb-4">Documentary</h2>
-                <p class="text-sm text-gray-500 leading-relaxed">
-                    Long-form non-fiction that investigates real worlds with the precision of fiction. We find the frame that makes truth undeniable.
+    <!-- ══════════════════════════════════════
+         SERVICES
+    ══════════════════════════════════════ -->
+    <section style="background:#fff; padding:6rem 2rem;" class="md:px-16 lg:px-24">
+
+        <div style="margin-bottom:3rem;">
+            <span style="font-size:0.625rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#9ca3af;">What We Do</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr; gap:0; border-top:1px solid #f3f4f6;">
+
+            <!-- Documentary -->
+            <div style="padding:2.5rem 0; border-bottom:1px solid #f3f4f6; display:grid; grid-template-columns:1fr; gap:1rem;" class="md:grid-cols-3">
+                <div>
+                    <div style="width:2rem; height:1px; background:#000; margin-bottom:1.25rem;"></div>
+                    <h2 style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.15em;">Documentary</h2>
+                </div>
+                <p style="font-size:0.875rem; color:#6b7280; line-height:1.7; grid-column:span 2;" class="md:col-span-2">
+                    Long-form non-fiction built with the discipline of fiction. We don't capture events — we construct their meaning. Every film we make starts with a question that doesn't have a clean answer.
                 </p>
             </div>
 
-            <div class="bg-white px-8 pb-8 md:px-12">
-                <div class="h-px w-8 bg-black mb-6"></div>
-                <h2 class="text-sm font-bold uppercase tracking-widest mb-4">Narrative Shorts</h2>
-                <p class="text-sm text-gray-500 leading-relaxed">
-                    Short films that compress complex ideas into sharp, visceral experiences. Proof of concept for bigger stories.
+            <!-- Narrative Shorts -->
+            <div style="padding:2.5rem 0; border-bottom:1px solid #f3f4f6; display:grid; grid-template-columns:1fr; gap:1rem;" class="md:grid-cols-3">
+                <div>
+                    <div style="width:2rem; height:1px; background:#000; margin-bottom:1.25rem;"></div>
+                    <h2 style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.15em;">Narrative Shorts</h2>
+                </div>
+                <p style="font-size:0.875rem; color:#6b7280; line-height:1.7;" class="md:col-span-2">
+                    Short films built to cut through. Compressed ideas, maximum impact. We treat the short format as a precision instrument — proof of concept for bigger stories, and complete works in their own right.
                 </p>
             </div>
 
-            <div class="bg-white pl-8 pb-8 md:pl-12">
-                <div class="h-px w-8 bg-black mb-6"></div>
-                <h2 class="text-sm font-bold uppercase tracking-widest mb-4">Cinematic Production</h2>
-                <p class="text-sm text-gray-500 leading-relaxed">
-                    Full production pipeline from development to delivery. We handle the craft so the story can breathe.
+            <!-- Cinematic Production -->
+            <div style="padding:2.5rem 0; display:grid; grid-template-columns:1fr; gap:1rem;" class="md:grid-cols-3">
+                <div>
+                    <div style="width:2rem; height:1px; background:#000; margin-bottom:1.25rem;"></div>
+                    <h2 style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.15em;">Cinematic Production</h2>
+                </div>
+                <p style="font-size:0.875rem; color:#6b7280; line-height:1.7;" class="md:col-span-2">
+                    Full pipeline from development to delivery. Crew, camera, post — we handle the craft end to end so the story can breathe. Built for projects that demand more than competence.
                 </p>
             </div>
 
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-start md:items-end fade-in delay-500">
-        <div class="space-y-2">
-            <h3 class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Contact</h3>
-            <a href="mailto:contact@strictlyfiction.studio" class="block text-lg font-bold hover:text-gray-500 transition-colors">contact@strictlyfiction.studio</a>
+    <!-- ══════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════ -->
+    <footer style="background:#fff; border-top:1px solid #f3f4f6; padding:2rem; display:flex; flex-direction:column; gap:1rem;" class="md:flex-row md:justify-between md:items-end md:px-16 lg:px-24">
+        <div>
+            <div style="font-size:0.625rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#9ca3af; margin-bottom:0.5rem;">Contact</div>
+            <a href="mailto:contact@strictlyfiction.studio" style="font-size:1.125rem; font-weight:700; color:#000; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#6b7280'" onmouseout="this.style.color='#000'">
+                contact@strictlyfiction.studio
+            </a>
         </div>
-        <div class="mt-8 md:mt-0">
-            <span class="text-[10px] text-gray-300">© 2026 Strictly Fiction Studio.</span>
-        </div>
+        <span style="font-size:0.625rem; color:#d1d5db;">© 2026 Strictly Fiction Studio.</span>
     </footer>
 
-    <!-- REEL MODAL -->
+    <!-- ══════════════════════════════════════
+         REEL MODAL
+    ══════════════════════════════════════ -->
     <div id="reel-modal" onclick="closeReel(event)">
-        <span id="reel-close" onclick="closeReel()">✕ Close</span>
+        <button id="reel-close" onclick="closeReel()">✕ Close</button>
         <video id="reel-video" src="reel.mp4" playsinline controls></video>
     </div>
 
     <script>
         function openReel() {
-            const modal = document.getElementById('reel-modal');
-            const video = document.getElementById('reel-video');
-            modal.classList.add('open');
-            video.play();
+            document.getElementById('reel-modal').classList.add('open');
+            document.getElementById('reel-video').play();
         }
         function closeReel(e) {
-            if (e && e.target !== document.getElementById('reel-modal') && e.target !== document.getElementById('reel-close')) return;
-            const modal = document.getElementById('reel-modal');
-            const video = document.getElementById('reel-video');
-            modal.classList.remove('open');
-            video.pause();
-            video.currentTime = 0;
+            if (e && e.target !== document.getElementById('reel-modal') && e.target.id !== 'reel-close') return;
+            document.getElementById('reel-modal').classList.remove('open');
+            const v = document.getElementById('reel-video');
+            v.pause();
+            v.currentTime = 0;
         }
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReel(); });
     </script>
